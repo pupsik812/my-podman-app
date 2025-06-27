@@ -18,6 +18,8 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y podman
+
+
       - name: Log in to Docker Hub
         run: |
           podman login -u ${{ secrets.git@github.com:pupsik812/my-podman-app.git }} -p ${{ secrets.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 }} docker.oi
@@ -26,4 +28,4 @@ jobs:
       - name: Build and Push
         run: |
           podman build -t ${{ secrets.git@github.com:pupsik812/my-podman-app.git }}/my-podman-app:latest .
-podman push ${{ secrets.git@github.com:pupsik812/my-podman-app.git}}/my-podman-app:latest
+          podman push ${{ secrets.git@github.com:pupsik812/my-podman-app.git}}/my-podman-app:latest
