@@ -6,6 +6,12 @@ on:
     branches: [ "main" ]
 
 
+env:
+  DOCKERHUB_USERNAME: ${{ secrets.:pupsik812/my-podman-app.git }}
+  DOCKERHUB_TOKEN: ${{ secrets.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 }}
+  IMAGE_NAME: "my-podman-app"
+
+
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
@@ -22,10 +28,10 @@ jobs:
 
       - name: Log in to Docker Hub
         run: |
-          podman login -u ${{ secrets.:pupsik812/my-podman-app.git }} -p ${{ secrets.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 }} docker.oi
+          echo "$DOCKERHUB_TOKEN" | podman login -u "$DOCKERHUB_USERNAME" --password-stdin docker.io
 
 
       - name: Build and Push
         run: |
-          podman build -t ${{ secrets.:pupsik812/my-podman-app.git }}/my-podman-app:latest .
-          podman push ${{ secrets.:pupsik812/my-podman-app.git}}/my-podman-app:latest
+          podman build -t "$DOCKERHUB_USERNAME/$IMAGE_NAME:latest" .
+          podman push "$DOCKERHUB_USERNAME/$IMAGE_NAME:latest"
