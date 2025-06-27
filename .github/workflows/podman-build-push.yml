@@ -1,0 +1,25 @@
+name: Build and push with Podman
+
+on:
+push:
+branches: [ "main" ]
+
+jobs:
+build-and-push:
+runs-on: ubuntu-latest
+steps:
+- name: Checkout code
+uses: actions/checkout@v4
+
+- name: Install Podman
+run: |
+sudo apt-get update
+sudo apt-get install -y podman
+- name: Log in to Docker Hub
+run: |
+podman login -u ${{ secrets.git@github.com:pupsik812/my-podman-app.git }} -p ${{ secrets.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 }} docker.oi
+
+- name: Build and Push
+run: |
+podman build -t ${{ secrets.git@github.com:pupsik812/my-podman-app.git }}/my-podman-app:latest .
+podman push ${{ secrets.git@github.com:pupsik812/my-podman-app.git}}/my-podman-app:latest
