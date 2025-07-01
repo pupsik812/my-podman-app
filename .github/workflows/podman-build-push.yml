@@ -3,12 +3,7 @@ name: Build and push with Podman
 
 on:
   push:
-    branches: [ "main" ]
-
-
-env:
-   DOCKERHUB_USER: ${{ secrets.pupsik812 }}
-   DOCKERHUB_TOKEN: ${{ secrets.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 }}
+    branches: [ "maim" ]
 
 
 jobs:
@@ -28,11 +23,16 @@ jobs:
 
 
       - name: Login to Docker Hub
+        env:
+          DOCKERHUB_USER: ${{ secrets.pupsik812 }}
+          DOCKERHUB_TOKEN: ${{ secrets.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 }}
         run: |
           echo "$DOCKERHUB_TOKEN" | podman login -u "$DOCKERHUB_USERNAME" --password-stdin docker.io
 
 
       - name: Build and Push
+        env:
+          DOCKERHUB_USER: ${{ secrets.DOCKERHUB_USERNAME}}
         run: |
           podman build -t "docker.io/$DOCKERHUB_USERNAME/my-podman-app:latest" .
           podman push "docker.io/$DOCKERHUB_USERNAME/my-podman-app:latest"
