@@ -8,7 +8,7 @@ on:
 
 env:
    DOCKERHUB_USER: ${{ secrets.pupsik812 }}
-    DOCKERHUB_TOKEN: ${{ secrets.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 }}
+    DOCKERHUB_TOKEN: ${{ secrets.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 }}
 
 jobs:
   build-and-push:
