@@ -23,6 +23,9 @@ jobs:
 
 
       - name: Docker Hub Login
+        env:
+          DOCKERHUB_USER: ${{ secrets.pupsik812 }}
+          DOCKERHUB_TOKEN: ${{ secrets.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 }}
         run: |
           echo "${{ secrets.DOCKERHUB_TOKEN }}" | podman login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin docker.io
 
