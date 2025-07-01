@@ -24,10 +24,13 @@ jobs:
 
       - name: Docker Hub Login
         run: |
-          podman login -u "${{ secrets.DOCKERHUB_USERNAME }}" -p "${{ secrets.DOCKERHUB_TOKEN }}" docker.io
+          echo "${{ secret.DOCKERHUB_TOKEN }}" | podman login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin docker.io
 
 
       - name: Build and Push
         run: |
-          podman build -t "${{ secrets.DOCKERHUB_USERNAME }}/my-podman-app:latest" .
-          podman push "${{ secrets.DOCKERHUB_USERNAME }}/my-podman-app:latest"
+          IMAGE_NAME="docker.io/${{ secrets.DOCKERHUB_USERNAME }}/my-podman-app:latest"
+
+
+          podman build -t $IMAGE_NAME .
+          podman push $IMAGE_NAME
