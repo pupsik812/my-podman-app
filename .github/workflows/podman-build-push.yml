@@ -20,7 +20,7 @@ jobs:
           sudo apt-get install -y podman
 
 
-      - name: Log in to Docker Hub
+      - name: Docker Hub Login
         run: |
           podman login -u "${{ secrets.:pupsik812/my-podman-app.git }}" -p "${{ secrets.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 }}" docker.io
 
