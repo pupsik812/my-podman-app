@@ -24,7 +24,7 @@ jobs:
 
       - name: Docker Hub Login
         run: |
-          echo "${{ secret.DOCKERHUB_TOKEN }}" | podman login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin docker.io
+          echo "${{ secrets.DOCKERHUB_TOKEN }}" | podman login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin docker.io
 
 
       - name: Build and Push
