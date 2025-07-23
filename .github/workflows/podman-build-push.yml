@@ -38,5 +38,5 @@ jobs:
         env:
           DOCKERHUB_USER: ${{ secrets.DOCKERHUB_USERNAME}}
         run: |
-          podman build -t docker.io/${{ secrets.DOCKERHUB_USERNAME/my-podman-app:latest .
-          podman push docker.io/${{ secrets.DOCKERHUB_USERNAME/my-podman-app:latest
+          podman build -t docker.io/${{ secrets.DOCKERHUB_USERNAME}}/my-podman-app:latest .
+          podman push docker.io/${{ secrets.DOCKERHUB_USERNAME}}/my-podman-app:latest
