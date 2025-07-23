@@ -3,7 +3,7 @@ name: Build and push with Podman
 
 on:
   push:
-    branches: [ "maim" ]
+    branches: [ "main" ]
 
 
 jobs:
@@ -21,8 +21,8 @@ jobs:
           sudo mkdir -p /etc/containers
           echo -e '[registries.search]\nregistries = ["docker.io"]' | sudo tee /etc/containers/registries.conf
 
-          echo "podman:100000:65536" | sudo tee /ect/subuid
-          echo "podman:100000:65536" | sudo tee /ect/subgit
+          echo "podman:100000:65536" | sudo tee /etc/subuid
+          echo "podman:100000:65536" | sudo tee /etc/subgid
           mkdir -p ~/.local/share/containers
           chmod 755 ~/.local/share/containers
 
@@ -30,7 +30,7 @@ jobs:
       - name: Configure Docker Hub auth
         run: |
           mkdir -p ~/.docker
-          echo'{"auths":{"docker.io":{"auth":"'$(echo -n"${{ secrets.DOCKERHUB_USERNAME }}:${{ secrets.DOCKERHUB_TOKEN }}" | base 64 -w0)'"}}' > ~/.docker/config.json
+          echo'{"auths":{"docker.io":{"auth":"'$(echo -n"${{ secrets.DOCKERHUB_USERNAME }}:${{ secrets.DOCKERHUB_TOKEN }}" | base64 -w0)'"}}' > ~/.docker/config.json
           chmod 600 ~/.docker/config.json)
 
 
