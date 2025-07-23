@@ -36,7 +36,7 @@ jobs:
       - name: Configure Docker Hub auth
         run: |
           mkdir -p ~/.docker
-          echo'{"auths":{"docker.io":{"auth":"'$(echo -n"${{ secrets.DOCKERHUB_USERNAME }}:${{ secrets.DOCKERHUB_TOKEN }}" | base64 -w0)'"}}' > ~/.docker/config.json
+          echo'{"auths":{"docker.io":{"auth":"'$(echo -n"${{ secrets.DOCKERHUB_USERNAME }}:${{ secrets.DOCKERHUB_TOKEN }}" | base64 -w0'"}}' > ~/.docker/config.json
           chmod 600 ~/.docker/config.json)
 
 
@@ -44,5 +44,5 @@ jobs:
         env:
           DOCKERHUB_USER: ${{ secrets.DOCKERHUB_USERNAME}}
         run: |
-          podman build -t "docker.io/${{ secrets.DOCKERHUB_USERNAME}}/my-podman-app:latest" .
-          podman push "docker.io/${{ secrets.DOCKERHUB_USERNAME}}/my-podman-app:latest"
+          podman build -t "docker.io/${{ secrets.DOCKERHUB_USERNAME }}/my-podman-app:latest" .
+          podman push "docker.io/${{ secrets.DOCKERHUB_USERNAME }}/my-podman-app:latest"
