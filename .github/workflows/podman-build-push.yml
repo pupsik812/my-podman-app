@@ -25,22 +25,9 @@ jobs:
     run-on: ununtu-latest
     steps:
       -name: Login to Docker Hub
-      - run: echo "Build"
-
-
-    - name: Install Podman
-      run: |
-          sudo apt-get update
-          sudo apt-get install -y podman podman-docker buildah
-          sudo mkdir -p /etc/containers
-          echo -e '[registries.search]\nregistries = ["docker.io"]' | sudo tee /etc/containers/registries.conf
-
-          echo "podman:100000:65536" | sudo tee /etc/subuid
-          echo "podman:100000:65536" | sudo tee /etc/subgid
-          mkdir -p ~/.local/share/containers
-          chmod 755 ~/.local/share/containers
-
-
+      - run: |
+          echo "${{ secrets.DOCKERHUB_TOKEN }}" | \
+          podman login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin docker.io
     - name: Verify Podman
        run: |
          podman --version
