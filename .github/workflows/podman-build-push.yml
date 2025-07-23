@@ -8,8 +8,8 @@ on:
 
 jobs:
   setup:
-    runs-on: ubuntu-latest
-    steps:
+  runs-on: ubuntu-latest
+  steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
@@ -24,18 +24,18 @@ jobs:
     needs: setup
     run-on: ununtu-latest
     steps:
-      -name: Login to Docker Hub
-      - run: |
+      - name: Login to Docker Hub
+        run: |
           echo "${{ secrets.DOCKERHUB_TOKEN }}" | \
           podman login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin docker.io
-    - name: Verify Podman
-       run: |
+      - name: Verify Podman
+        run: |
          podman --version
          buildah --version
 
 
-    - name: Configure Docker Hub auth
-      run: |
+      - name: Configure Docker Hub auth
+        run: |
           mkdir -p ~/.docker
           auth_token=$( echo -n"${{ secrets.DOCKERHUB_USERNAME }}:${{ secrets.DOCKERHUB_TOKEN }}" \
              | base64 -w0)
@@ -44,11 +44,11 @@ jobs:
           chmod 600 ~/..docker/config.json
 
 
-     - name: Build and push image
-        env:
-          DOCKERHUB_USER: ${{ secrets.DOCKERHUB_USERNAME}}
-        run: |
-          podman build \
+       - name: Build and push image
+         env:
+           DOCKERHUB_USER: ${{ secrets.DOCKERHUB_USERNAME}}
+         run: |
+           podman build \
             -t "docker.io/${{ secrets.DOCKERHUB_USERNAME }}/my-podman-app:latest" .
-          podman push \
+           podman push \
             "docker.io/${{ secrets.DOCKERHUB_USERNAME }}/my-podman-app:latest"
