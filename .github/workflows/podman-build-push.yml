@@ -11,11 +11,11 @@ jobs:
   build-and-push:
    runs-on: ubuntu-latest
    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+    - name: Checkout code
+     uses: actions/checkout@v4
 
-      - name: Install Podman
-        run: |
+    - name: Install Podman
+      run: |
           sudo apt-get update
           sudo apt-get install -y podman podman-docker buildah
           sudo mkdir -p /etc/containers
@@ -27,14 +27,14 @@ jobs:
           chmod 755 ~/.local/share/containers
 
 
-      - name: Verify Podman
+    - name: Verify Podman
        run: |
          podman --version
          buildah --version
 
 
-      - name: Configure Docker Hub auth
-        run: |
+    - name: Configure Docker Hub auth
+      run: |
           mkdir -p ~/.docker
           auth_token=$( echo -n"${{ secrets.DOCKERHUB_USERNAME }}:${{ secrets.DOCKERHUB_TOKEN }}" \
              | base64 -w0)
@@ -43,7 +43,7 @@ jobs:
           chmod 600 ~/..docker/config.json
 
 
-      - name: Build and push image
+     - name: Build and push image
         env:
           DOCKERHUB_USER: ${{ secrets.DOCKERHUB_USERNAME}}
         run: |
