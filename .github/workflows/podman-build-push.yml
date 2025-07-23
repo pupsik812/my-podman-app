@@ -26,7 +26,8 @@ jobs:
           mkdir -p ~/.local/share/containers
           chmod 755 ~/.local/share/containers
 
-      -name: Verify Podman
+
+      - name: Verify Podman
        run: |
          podman --version
          buildah --version
