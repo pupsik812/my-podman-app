@@ -8,11 +8,15 @@ on:
 
 
 jobs:
-  build-and-push:
-   runs-on: ubuntu-latest
-   steps:
-    - name: Checkout code
-     uses: actions/checkout@v4
+  setup:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Setup"
+  build:
+    needs: setup
+    steps:
+      - run: echo "Build"
+
 
     - name: Install Podman
       run: |
