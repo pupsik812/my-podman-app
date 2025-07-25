@@ -20,22 +20,23 @@ jobs:
           podman --version
 
 
- build:
-   needs: setup
-   run-on: ununtu-latest
-   steps:
-     - name: Login to Docker Hub
-       run: |
-         echo "${{ secrets.DOCKERHUB_TOKEN }}" | \
-         podman login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin docker.io
-     - name: Verify Podman
-        run: |
-         podman --version
-         buildah --version
+build:
+  needs: setup
+  run-on: ununtu-latest
+  steps:
+    - name: Login to Docker Hub
+      run: |
+        echo "${{ secrets.DOCKERHUB_TOKEN }}" | \
+        podman login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin docker.io
+    - name: Verify Podman
+      run: |
+        podman --version
+        buildah --version
 
-     - name: Configure Docker Hub auth
-        run: |
-         mkdir -p ~/.docker
+
+    - name: Configure Docker Hub auth
+      run: |
+       mkdir -p ~/.docker
          auth_token=$( echo -n"${{ secrets.DOCKERHUB_USERNAME }}:${{ secrets.DOCKERHUB_TOKEN }}" \
              | base64 -w0)
           echo "{\"auths\":{\"docker.io\":{\"auth\":\"${auth_token}\"}}}" \
